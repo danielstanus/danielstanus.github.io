@@ -3,19 +3,197 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Tema claro (predeterminado) */
+  --background: 250 251 254; /* #fafbfe - Blanco ligeramente azulado */
+  --background-secondary: 241 245 249; /* #f1f5f9 - Gris azulado muy claro */
+  --foreground: 15 23 42; /* #0f172a - Azul muy oscuro */
+  --foreground-secondary: 51 65 85; /* #334155 - Azul grisáceo oscuro */
+  
+  --primary: 59 130 246; /* #3b82f6 - Azul brillante */
+  --primary-foreground: 255 255 255; /* #ffffff - Blanco puro */
+  
+  --secondary: 99 102 241; /* #6366f1 - Índigo/violeta, más sofisticado */
+  --secondary-foreground: 255 255 255; /* #ffffff - Blanco puro */
+  
+  --accent: 79 70 229; /* #4f46e5 - Índigo más saturado */
+  --accent-foreground: 255 255 255; /* #ffffff - Blanco puro */
+  
+  --muted: 238 242 255; /* #eef2ff - Índigo muy claro */
+  --muted-foreground: 100 116 139; /* #64748b - Gris azulado medio */
+  
+  --border: 226 232 240; /* #e2e8f0 - Gris claro */
+  
+  --success: 34 197 94; /* #22c55e - Verde */
+  --warning: 245 158 11; /* #f59e0b - Ámbar */
+  --danger: 239 68 68; /* #ef4444 - Rojo */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.dark {
+  /* Tema oscuro */
+  --background: 17 24 39; /* #111827 - Gris muy oscuro con tinte azul */
+  --background-secondary: 31 41 55; /* #1f2937 - Gris oscuro azulado */
+  --foreground: 248 250 252; /* #f8fafc - Blanco azulado muy claro */
+  --foreground-secondary: 203 213 225; /* #cbd5e1 - Gris azulado claro */
+  
+  --primary: 59 130 246; /* #3b82f6 - Azul brillante */
+  --primary-foreground: 255 255 255; /* #ffffff - Blanco puro */
+  
+  --secondary: 129 140 248; /* #818cf8 - Índigo/violeta medio */
+  --secondary-foreground: 255 255 255; /* #ffffff - Blanco puro */
+  
+  --accent: 139 92 246; /* #8b5cf6 - Púrpura/violeta */
+  --accent-foreground: 255 255 255; /* #ffffff - Blanco puro */
+  
+  --muted: 51 65 85; /* #334155 - Azul grisáceo oscuro */
+  --muted-foreground: 156 163 175; /* #9ca3af - Gris medio */
+  
+  --border: 55 65 81; /* #374151 - Gris oscuro */
+  
+  --success: 34 197 94; /* #22c55e - Verde */
+  --warning: 245 158 11; /* #f59e0b - Ámbar */
+  --danger: 239 68 68; /* #ef4444 - Rojo */
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  html {
+    @apply scroll-smooth;
+  }
+  
+  h1 {
+    @apply text-4xl font-bold tracking-tight md:text-5xl;
+  }
+  
+  h2 {
+    @apply text-3xl font-bold tracking-tight md:text-4xl;
+  }
+  
+  h3 {
+    @apply text-2xl font-bold tracking-tight md:text-3xl;
+  }
+  
+  h4 {
+    @apply text-xl font-semibold tracking-tight md:text-2xl;
+  }
+  
+  h5 {
+    @apply text-lg font-semibold tracking-tight md:text-xl;
+  }
+  
+  h6 {
+    @apply text-base font-semibold tracking-tight md:text-lg;
+  }
+  
+  a {
+    @apply text-primary hover:text-primary/80 transition-colors cursor-pointer;
+  }
+  
+  ::selection {
+    @apply bg-primary/20 text-foreground;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-10 text-foreground inline-block relative after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-primary;
+  }
+  
+  .section-subtitle {
+    @apply text-xl md:text-2xl font-semibold mb-6 text-primary;
+  }
+  
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none cursor-pointer;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md shadow-sm btn;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/90 px-4 py-2 rounded-md shadow-sm btn;
+  }
+  
+  .btn-outline {
+    @apply border border-primary bg-transparent hover:bg-primary/10 text-primary hover:text-primary px-4 py-2 rounded-md transition-all duration-200 btn;
+  }
+
+  .btn-outline-icon {
+    @apply border border-primary bg-transparent hover:bg-primary/10 text-primary hover:text-primary px-6 py-3 rounded-md transition-all duration-200 btn flex-col items-center gap-2;
+  }
+  
+  .btn-ghost {
+    @apply bg-transparent text-foreground hover:bg-muted px-4 py-2 rounded-md btn;
+  }
+  
+  .nav-link {
+    @apply text-foreground-secondary hover:text-primary transition-colors duration-200 font-medium cursor-pointer;
+  }
+  
+  .nav-link.active {
+    @apply text-primary font-semibold;
+  }
+  
+  .card {
+    @apply bg-background-secondary rounded-lg shadow-sm p-6 border border-border transition-all duration-200 hover:shadow-md;
+  }
+  
+  .input-field {
+    @apply bg-background border border-border rounded-md p-2 px-3 text-foreground w-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors;
+  }
+  
+  .badge {
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .badge-primary {
+    @apply bg-primary/10 text-primary border-primary/20 hover:bg-primary/20;
+  }
+  
+  .badge-secondary {
+    @apply bg-primary/10 text-primary border-primary/20 hover:bg-primary/20;
+  }
+  
+  .badge-success {
+    @apply bg-success/10 text-success border-success/20 hover:bg-success/20;
+  }
+  
+  .badge-warning {
+    @apply bg-warning/10 text-warning border-warning/20 hover:bg-warning/20;
+  }
+  
+  .badge-danger {
+    @apply bg-danger/10 text-danger border-danger/20 hover:bg-danger/20;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  /* .animate-in {
+    @apply animate-fade-in animate-duration-300;
+  } */
+  
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
 }
