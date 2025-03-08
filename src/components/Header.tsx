@@ -14,6 +14,16 @@ const Header: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const navLinks = [
+    { id: "home", title: "Inicio" },
+    { id: "about", title: "Sobre mí" },
+    { id: "experience", title: "Experiencia" },
+    { id: "skills", title: "Habilidades" },
+    { id: "education", title: "Formación" },
+    { id: "projects", title: "Proyectos" },
+    { id: "contact", title: "Contacto" }
+  ];
+
   useEffect(() => {
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
@@ -39,17 +49,7 @@ const Header: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
-
-  const navLinks = [
-    { id: "home", title: "Inicio" },
-    { id: "about", title: "Sobre mí" },
-    { id: "experience", title: "Experiencia" },
-    { id: "skills", title: "Habilidades" },
-    { id: "education", title: "Formación" },
-    { id: "projects", title: "Proyectos" },
-    { id: "contact", title: "Contacto" }
-  ];
+  }, [navLinks]);
 
   return (
     <header className="fixed w-full z-50 bg-background/80 backdrop-blur-sm shadow-md py-3 border-b border-border transition-all duration-300">

@@ -17,7 +17,7 @@ const Skills: React.FC = () => {
               <div className="h-48 w-48 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 blur-2xl absolute -z-10"></div>
               <div className="border border-border p-6 rounded-lg bg-background/80 backdrop-blur-sm">
                 <p className="text-foreground-secondary italic">
-                  "El aprendizaje continuo es la clave para mantenerse relevante en un campo en constante evolución."
+                  &ldquo;El aprendizaje continuo es la clave para mantenerse relevante en un campo en constante evolución.&rdquo;
                 </p>
               </div>
             </div>
