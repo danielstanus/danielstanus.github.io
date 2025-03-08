@@ -7,9 +7,7 @@
     "dev": "next dev --turbopack",
     "build": "next build --no-lint",
     "start": "next start",
-    "lint": "next lint",
-    "predeploy": "npm run build && touch out/.nojekyll",
-    "deploy": "gh-pages -d out -t true"
+    "lint": "next lint"
   },
   "dependencies": {
     "@types/react-router-dom": "^5.3.3",
