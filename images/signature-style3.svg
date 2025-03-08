@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 200">
+  <defs>
+    <style>
+      .script-name {
+        font-family: 'Dancing Script', cursive;
+        font-size: 40px;
+        fill: #ffffff;
+      }
+      .main-initials {
+        font-family: 'Playfair Display', serif;
+        font-size: 105px;
+        font-weight: 200;
+        letter-spacing: -3px;
+        fill: #ffffff;
+      }
+    </style>
+  </defs>
+  <text x="20" y="100" class="script-name">Daniel</text>
+  <text x="145" y="130" class="main-initials">DS</text>
+  <text x="285" y="100" class="script-name">Stanus</text>
+</svg>

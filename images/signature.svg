@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 200">
+  <defs>
+    <style>
+      .script-name {
+        font-family: 'Brush Script MT', cursive;
+        font-size: 42px;
+        font-style: italic;
+        fill: #333;
+      }
+      .main-initials {
+        font-family: 'Times New Roman', serif;
+        font-size: 100px;
+        font-weight: 300;
+        letter-spacing: -5px;
+        fill: #333;
+      }
+    </style>
+  </defs>
+  <text x="25" y="100" class="script-name">Daniel</text>
+  <text x="150" y="130" class="main-initials">DS</text>
+  <text x="280" y="100" class="script-name">Stanus</text>
+</svg>
