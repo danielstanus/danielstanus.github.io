@@ -20,8 +20,8 @@ const Header: React.FC = () => {
     { id: "experience", title: "Experiencia" },
     { id: "skills", title: "Habilidades" },
     { id: "education", title: "Formación" },
-    { id: "projects", title: "Proyectos" },
-    { id: "contact", title: "Contacto" }
+    { id: "projects", title: "Proyectos" }
+    // { id: "contact", title: "Contacto" }
   ];
 
   useEffect(() => {

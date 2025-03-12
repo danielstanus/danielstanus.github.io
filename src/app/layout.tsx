@@ -1,6 +1,6 @@
 import { Inter, Roboto_Mono } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
-import Footer from '../components/Footer';
+import CustomCursor from '@/components/CustomCursor';
 import './globals.css';
 
 const inter = Inter({
@@ -55,11 +55,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={`${inter.variable} ${robotoMono.variable}`} suppressHydrationWarning>
-      <body>
-        <ThemeProvider attribute="class" defaultTheme="system" storageKey="theme-preference" enableSystem>
+    <html lang="es" suppressHydrationWarning>
+      <body className={`${inter.variable} ${robotoMono.variable} bg-background text-foreground relative`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <CustomCursor />
           {children}
-          <Footer />
         </ThemeProvider>
       </body>
     </html>
