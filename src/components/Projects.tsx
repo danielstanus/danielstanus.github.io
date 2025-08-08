@@ -1,24 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import { projectsData } from '../data/projectsData';
+import { projectsData, ProjectItem as Project } from '../data/projectsData'; // Assuming ProjectItem is the correct interface name in projectsData.ts
 import { FaGithub, FaExternalLinkAlt, FaInfoCircle } from 'react-icons/fa';
+import ProjectDetailModal from './ProjectDetailModal'; // Import the modal
 
-interface Project {
-  id: string | number;
-  title: string;
-  description: string;
-  imageUrl?: string;
-  technologies: string[];
-  githubLink?: string;
-  demoLink?: string;
-  longDescription?: string;
-  featured?: boolean;
-  date?: string;
-}
+// The Project interface is now imported from projectsData.ts as ProjectItem as Project.
 
 const Projects: React.FC = () => {
-  const [activeProject, setActiveProject] = useState<string | number | null>(null);
+  const [projectForModal, setProjectForModal] = useState<Project | null>(null); // Renamed and typed
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [filter, setFilter] = useState<string | null>(null);
   
   // Extract unique technologies for filter
@@ -37,8 +28,14 @@ const Projects: React.FC = () => {
   // Combined projects with featured first
   const sortedProjects = [...featuredProjects, ...regularProjects];
 
-  const handleProjectClick = (id: string | number) => {
-    setActiveProject(activeProject === id ? null : id);
+  const handleProjectClick = (project: Project) => {
+    setProjectForModal(project);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setProjectForModal(null);
   };
 
   return (
@@ -81,8 +78,8 @@ const Projects: React.FC = () => {
               }`}
             >
               <div 
-                className="h-52 relative overflow-hidden bg-background-secondary"
-                onClick={() => handleProjectClick(project.id)}
+                className="h-64 relative overflow-hidden bg-background-secondary cursor-pointer"
+                onClick={() => handleProjectClick(project)} // Pass the whole project object
               >
                 {project.imageUrl ? (
                   <>
@@ -91,7 +88,8 @@ const Projects: React.FC = () => {
                       alt={project.title} 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                     />
-                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {/* The overlay might not be as effective with object-contain, consider removing or adjusting if needed */}
+                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div> 
                   </>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-background-secondary">
@@ -101,12 +99,7 @@ const Projects: React.FC = () => {
                   </div>
                 )}
 
-                {/* Featured badge */}
-                {project.featured && (
-                  <div className="absolute top-3 right-3 badge badge-primary">
-                    Destacado
-                  </div>
-                )}
+                {/* Featured badge removed as per request */}
 
                 {/* Date badge if available */}
                 {project.date && (
@@ -117,7 +110,10 @@ const Projects: React.FC = () => {
               </div>
 
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
+                <h3 
+                  className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors cursor-pointer"
+                  onClick={() => handleProjectClick(project)} // Open modal on title click
+                >
                   {project.title}
                 </h3>
                 <p className="text-foreground mb-4 line-clamp-2">{project.description}</p>
@@ -136,17 +132,6 @@ const Projects: React.FC = () => {
                     </span>
                   ))}
                 </div>
-
-                {/* Expanded description */}
-                {project.longDescription && (
-                  <div 
-                    className={`overflow-hidden transition-all duration-300 mb-4 ${
-                      activeProject === project.id ? 'max-h-48' : 'max-h-0'
-                    }`}
-                  >
-                    <p className="text-foreground text-sm">{project.longDescription}</p>
-                  </div>
-                )}
 
                 <div className="flex justify-between items-center mt-4">
                   <div className="flex space-x-4">
@@ -176,11 +161,11 @@ const Projects: React.FC = () => {
                   
                   {project.longDescription && (
                     <button 
-                      onClick={() => handleProjectClick(project.id)}
+                      onClick={() => handleProjectClick(project)} // Pass the whole project object
                       className="flex items-center text-xs text-foreground hover:text-primary transition-colors"
                     >
                       <FaInfoCircle className="mr-1" />
-                      {activeProject === project.id ? 'Menos info' : 'Más info'}
+                      Más detalles
                     </button>
                   )}
                 </div>
@@ -201,6 +186,12 @@ const Projects: React.FC = () => {
           </div>
         )}
       </div>
+
+      <ProjectDetailModal 
+        project={projectForModal}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </section>
   );
 };

@@ -39,7 +39,7 @@ const Footer = () => {
           </p>
           
           <a 
-            href="/cv-daniel-stanus.pdf" 
+            href="pdf/CV_Stanus_DanielCalin.pdf" 
             download 
             className="px-5 py-2 text-sm font-medium rounded-md transition-colors bg-gradient-to-r from-primary to-primary/80 text-white dark:text-primary-foreground hover:from-primary/90 hover:to-primary/70 hover:text-white shadow-sm flex items-center gap-2"
           >

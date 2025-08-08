@@ -2,6 +2,7 @@ import { Inter, Roboto_Mono } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import CustomCursor from '@/components/CustomCursor';
 import './globals.css';
+import type { Viewport } from 'next'; // Import Viewport type
 
 const inter = Inter({
   subsets: ['latin'],
@@ -13,6 +14,12 @@ const robotoMono = Roboto_Mono({
   variable: '--font-roboto-mono',
 });
 
+// New generateViewport function
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export const metadata = {
   title: 'Daniel Calin Stanus | Desarrollador Full Stack',
   description: 'Portafolio profesional de Daniel Calin Stanus, Desarrollador Full Stack especializado en .NET, PHP, React y Angular. Con experiencia en desarrollo web y aplicaciones empresariales.',
@@ -21,7 +28,7 @@ export const metadata = {
   creator: 'Daniel Calin Stanus',
   publisher: 'Daniel Calin Stanus',
   robots: 'index, follow',
-  viewport: 'width=device-width, initial-scale=1',
+  // viewport: 'width=device-width, initial-scale=1', // Removed from here
   icons: {
     icon: [
       { url: '/favicon.ico' },
