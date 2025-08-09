@@ -1,6 +1,7 @@
 {
-  "name": "Daniel Calin Stanus Portfolio",
+  "name": "Daniel Calin Stanus | Desarrollador Full Stack",
   "short_name": "Daniel Stanus",
+  "description": "Portafolio profesional de Daniel Calin Stanus, Desarrollador Full Stack especializado en .NET, PHP, React y Angular.",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +14,10 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  "theme_color": "#3b82f6",
+  "background_color": "#111827",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait-primary"
 }

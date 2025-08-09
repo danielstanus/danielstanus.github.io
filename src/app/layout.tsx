@@ -31,19 +31,23 @@ export const metadata = {
   // viewport: 'width=device-width, initial-scale=1', // Removed from here
   icons: {
     icon: [
-      { url: '/favicon.ico' },
+      { url: '/favicon.ico', sizes: '32x32' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' }
     ],
+    shortcut: [
+      { url: '/favicon.ico' }
+    ],
     apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180' }
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
     ]
   },
   manifest: '/site.webmanifest',
   openGraph: {
     type: 'website',
     locale: 'es_ES',
-    url: 'https://danielstanus.com',
+    url: 'https://danielstanus.github.io',
     title: 'Daniel Calin Stanus | Desarrollador Full Stack',
     description: 'Portafolio profesional de Daniel Calin Stanus, Desarrollador Full Stack especializado en .NET, PHP, React y Angular.',
     siteName: 'Daniel Calin Stanus Portfolio'
