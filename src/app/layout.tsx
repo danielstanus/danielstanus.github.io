@@ -82,7 +82,7 @@ export const metadata = {
     siteName: 'Daniel Calin Stanus Portfolio',
     images: [
       {
-        url: 'https://danielstanus.github.io/images/profile.jpg',
+        url: 'https://danielstanus.github.io/images/profile-min.jpg',
         width: 1200,
         height: 630,
         alt: 'Daniel Calin Stanus - Desarrollador Full Stack',
@@ -94,7 +94,7 @@ export const metadata = {
     title: 'Daniel Calin Stanus | Desarrollador Full Stack',
     description: 'Portafolio profesional de Daniel Calin Stanus, Desarrollador Full Stack especializado en .NET, PHP, React y Angular.',
     creator: '@danielstanus',
-    images: ['https://danielstanus.github.io/images/profile.jpg'],
+    images: ['https://danielstanus.github.io/images/profile-min.jpg'],
   },
   verification: {
     google: 'google-site-verification-code', // Reemplazar con código real si tienes

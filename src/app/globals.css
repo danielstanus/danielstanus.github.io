@@ -233,4 +233,53 @@
       display: none;
     }
   }
+
+  /* Optimizaciones específicas para móvil */
+  @media (max-width: 768px) {
+    /* Reducir animaciones complejas en móvil */
+    .animate-spin-slow,
+    .animate-blob-morph,
+    .animate-glitch {
+      animation: none !important;
+    }
+    
+    /* Simplificar transformaciones en móvil */
+    .group-hover\:scale-105:hover {
+      transform: scale(1.02) !important;
+    }
+    
+    /* Reducir blur effects que consumen GPU */
+    .blur-3xl {
+      filter: blur(8px) !important;
+    }
+    
+    .blur-2xl {
+      filter: blur(4px) !important;
+    }
+    
+    /* Optimizar gradientes complejos */
+    .bg-gradient-to-br {
+      background: linear-gradient(135deg, var(--primary) 0%, transparent 50%) !important;
+    }
+  }
+
+  /* Optimizaciones para dispositivos con poca memoria */
+  @media (max-width: 480px) {
+    /* Desactivar todas las animaciones complejas */
+    .animate-pulse,
+    .animate-bounce,
+    .animate-spin {
+      animation: none !important;
+    }
+    
+    /* Reducir sombras complejas */
+    .shadow-2xl {
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1) !important;
+    }
+    
+    /* Simplificar bordes redondeados complejos */
+    .rounded-\[30\%_70\%_70\%_30\%\/30\%_40\%_60\%_70\%\] {
+      border-radius: 1rem !important;
+    }
+  }
 }

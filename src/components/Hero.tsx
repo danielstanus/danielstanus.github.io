@@ -60,6 +60,29 @@ const Hero: React.FC = () => {
     top: `${(i * 11) % 100}%`,
     delay: `${(i * 0.2) % 2}s`
   }));
+
+  // Detect if user prefers reduced motion or is on mobile
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mobileQuery = window.matchMedia('(max-width: 768px)');
+    
+    setPrefersReducedMotion(mediaQuery.matches);
+    setIsMobile(mobileQuery.matches);
+
+    const handleMotionChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    const handleMobileChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    
+    mediaQuery.addEventListener('change', handleMotionChange);
+    mobileQuery.addEventListener('change', handleMobileChange);
+    
+    return () => {
+      mediaQuery.removeEventListener('change', handleMotionChange);
+      mobileQuery.removeEventListener('change', handleMobileChange);
+    };
+  }, []);
   
   return (
     <section id="home" className="min-h-screen flex items-center justify-center bg-background dark:bg-background pt-12 md:pt-16">
@@ -156,8 +179,8 @@ const Hero: React.FC = () => {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              {/* Particles effect (visible on hover) - only render complex animations on client side */}
-              {isClient && (
+              {/* Particles effect (visible on hover) - only render complex animations on desktop */}
+              {isClient && !isMobile && !prefersReducedMotion && (
                 <div className="absolute inset-0 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   {particlePositions.map((pos, i) => (
                     <div 
@@ -188,8 +211,8 @@ const Hero: React.FC = () => {
               
               {/* Main container with glitch effect */}
               <div className="relative group-hover:animate-glitch">
-                {/* Pseudo-elements for glitch effect - only render complex effects on client side */}
-                {isClient && (
+                {/* Pseudo-elements for glitch effect - only render complex effects on desktop */}
+                {isClient && !isMobile && !prefersReducedMotion && (
                   <>
                     <div className="absolute inset-0 rounded-[30%_70%_70%_30%/30%_40%_60%_70%] hidden group-hover:block before:content-[''] before:absolute before:inset-0 before:bg-accent/50 before:translate-x-[5px] before:translate-y-[-5px] before:rounded-[30%_70%_70%_30%/30%_40%_60%_70%] before:mix-blend-multiply before:opacity-0 before:group-hover:opacity-100 before:animate-glitch-1"></div>
                     <div className="absolute inset-0 rounded-[30%_70%_70%_30%/30%_40%_60%_70%] hidden group-hover:block before:content-[''] before:absolute before:inset-0 before:bg-primary/50 before:translate-x-[-5px] before:translate-y-[5px] before:rounded-[30%_70%_70%_30%/30%_40%_60%_70%] before:mix-blend-multiply before:opacity-0 before:group-hover:opacity-100 before:animate-glitch-2"></div>
@@ -229,8 +252,10 @@ const Hero: React.FC = () => {
             <div className="mt-6 w-64 md:w-80 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent opacity-50 animate-pulse"></div>
               <img 
-                src="/images/firma2.png"
-                alt="Firma personal" 
+                src="/images/firma2-min.png"
+                alt="Firma personal de Daniel Calin Stanus" 
+                loading="lazy"
+                decoding="async"
                 className="w-full h-auto relative z-10"
               />
             </div>
