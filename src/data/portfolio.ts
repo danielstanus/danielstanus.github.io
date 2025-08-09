@@ -35,36 +35,7 @@ export const EXPERIENCE = [
     }
   ];
   
-  export const PROJECTS = [
-    {
-      title: 'Sistema de gestión de almacén',
-      description: 'API desarrollada en C# .NET para gestionar el inventario y los procesos del almacén de OnVentanas.',
-      tags: ['C#', '.NET', 'SQL Server', 'REST API'],
-      image: '/projects/warehouse.jpg',
-      link: '#'
-    },
-    {
-      title: 'Aplicación móvil para empleados',
-      description: 'App desarrollada con Ionic para optimizar procesos internos y mejorar la comunicación entre departamentos.',
-      tags: ['Ionic', 'Angular', 'TypeScript', 'Firebase'],
-      image: '/projects/mobile-app.jpg',
-      link: '#'
-    },
-    {
-      title: 'Web corporativa de TPF Ingeniería',
-      description: 'Desarrollo y mantenimiento de módulos para la web interna de la empresa.',
-      tags: ['PHP', 'Laravel', 'JavaScript', 'MySQL'],
-      image: '/projects/corporate-web.jpg',
-      link: '#'
-    },
-    {
-      title: 'e-Time: Gestión de tiempo y nóminas',
-      description: 'Desarrollo del frontend de una aplicación móvil para la gestión de tiempo y nóminas de los empleados.',
-      tags: ['ASP.NET', 'React', 'C#', 'SQL Server'],
-      image: '/projects/etime.jpg',
-      link: '#'
-    }
-  ];
+
   
   export const SKILLS = {
     languages: [

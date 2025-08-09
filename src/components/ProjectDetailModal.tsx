@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { FaTimes, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaTimes, FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import InnerImageZoom from 'react-inner-image-zoom';
 import 'inner-image-zoom/lib/styles.min.css';
 
@@ -10,6 +10,7 @@ interface Project {
   title: string;
   description: string;
   imageUrl?: string;
+  imageUrls?: string[]; // Para múltiples imágenes
   technologies: string[];
   githubLink?: string;
   demoLink?: string;
@@ -25,7 +26,40 @@ interface ProjectDetailModalProps {
 }
 
 const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen, onClose }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
   if (!isOpen || !project) return null;
+
+  // Determinar si usar múltiples imágenes o una sola
+  const images = project.imageUrls && project.imageUrls.length > 0 ? project.imageUrls : (project.imageUrl ? [project.imageUrl] : []);
+  const hasMultipleImages = images.length > 1;
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  // Función para formatear el texto con saltos de línea y markdown básico
+  const formatDescription = (text: string) => {
+    return text.split('\n').map((line, index) => {
+      if (line.trim() === '') {
+        return <br key={index} />;
+      }
+      
+      // Detectar líneas que empiezan con emojis y **texto** (títulos de tabs)
+      if (line.includes('**') && (line.includes('🔐') || line.includes('📋') || line.includes('📦') || line.includes('📊'))) {
+        const formattedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        return (
+          <p key={index} className="font-semibold text-primary mt-4 mb-2" dangerouslySetInnerHTML={{ __html: formattedLine }} />
+        );
+      }
+      
+      return <p key={index} className="mb-2">{line}</p>;
+    });
+  };
 
   return (
     <div 
@@ -44,11 +78,11 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
           <FaTimes size={24} />
         </button>
 
-        {project.imageUrl && (
-          <div className="w-full mb-6 rounded-md overflow-hidden aspect-video">
+        {images.length > 0 && (
+          <div className="w-full mb-6 rounded-md overflow-hidden aspect-video relative">
             <InnerImageZoom 
-              src={project.imageUrl} 
-              zoomSrc={project.imageUrl} // Imagen de alta resolución para el zoom
+              src={images[currentImageIndex]} 
+              zoomSrc={images[currentImageIndex]} // Imagen de alta resolución para el zoom
               zoomType="hover" // Solo zoom al hacer hover
               zoomPreload={false} // Precargar imagen de zoom
               hideHint={true} // Ocultar el ícono (+)
@@ -56,6 +90,47 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
               fullscreenOnMobile={false} // Desactivar fullscreen en móvil
               className="w-full h-full object-contain" // object-cover para mantener aspecto
             />
+            
+            {/* Navegación del carrusel - solo mostrar si hay múltiples imágenes */}
+            {hasMultipleImages && (
+              <>
+                <button
+                  onClick={prevImage}
+                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 z-10"
+                  aria-label="Imagen anterior"
+                >
+                  <FaChevronLeft size={16} />
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 z-10"
+                  aria-label="Imagen siguiente"
+                >
+                  <FaChevronRight size={16} />
+                </button>
+                
+                {/* Indicadores de imagen */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+                  {images.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                        index === currentImageIndex 
+                          ? 'bg-primary scale-125' 
+                          : 'bg-white/50 hover:bg-white/70'
+                      }`}
+                      aria-label={`Ir a imagen ${index + 1}`}
+                    />
+                  ))}
+                </div>
+                
+                {/* Contador de imágenes */}
+                <div className="absolute top-4 left-4 bg-black/50 text-white px-2 py-1 rounded text-sm z-10">
+                  {currentImageIndex + 1} / {images.length}
+                </div>
+              </>
+            )}
           </div>
         )}    
         
@@ -66,7 +141,9 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
         )}
         {/* Featured badge removed from modal as per request */}
 
-        <p className="text-foreground-secondary mb-6 text-base leading-relaxed">{project.longDescription || project.description}</p>
+        <div className="text-foreground-secondary mb-6 text-base leading-relaxed">
+          {formatDescription(project.longDescription || project.description)}
+        </div>
 
         <div className="mb-6">
           <h4 className="text-lg font-semibold text-foreground mb-2">Tecnologías Utilizadas:</h4>
