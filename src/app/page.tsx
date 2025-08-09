@@ -13,36 +13,36 @@ export default function Home() {
     return (
       <>
         <Header />
-        <main>
-          <section id="home" className="bg-primary">
+        <main role="main">
+          <section id="home" className="bg-primary" aria-label="Presentación principal">
             <Hero />
           </section>
-          <section id="about" className="pt-6 pb-8 bg-primary/5">
+          <section id="about" className="pt-6 pb-8 bg-primary/5" aria-label="Acerca de mí">
             <div className="container mx-auto px-4">
               <About />
               </div>
           </section>
-          <section id="experience" className="pt-6 pb-8">
+          <section id="experience" className="pt-6 pb-8" aria-label="Experiencia profesional">
             <div className="container mx-auto px-4">
               <Experience />
             </div>
           </section>
-          <section id="skills" className="pt-6 pb-8 bg-primary/5">
+          <section id="skills" className="pt-6 pb-8 bg-primary/5" aria-label="Habilidades técnicas">
             <div className="container mx-auto px-4">
               <Skills />
             </div>
           </section>
-          <section id="education" className="pt-6 pb-8">
+          <section id="education" className="pt-6 pb-8" aria-label="Formación académica">
             <div className="container mx-auto px-4">
               <Education />
             </div>
           </section>
-          <section id="projects" className="pt-6 pb-8 bg-primary/5">
+          <section id="projects" className="pt-6 pb-8 bg-primary/5" aria-label="Proyectos realizados">
             <div className="container mx-auto px-4">
               <Projects />
             </div>
           </section>
-          {/* <section id="contact" className="pt-6 pb-8">
+          {/* <section id="contact" className="pt-6 pb-8" aria-label="Información de contacto">
             <div className="container mx-auto px-4">
               <Contact />
             </div>
