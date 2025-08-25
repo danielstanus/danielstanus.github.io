@@ -1,0 +1,68 @@
+[33mef00c47[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m Actualizado CV con nuevo PDF comprimido
+M	package-lock.json
+M	package.json
+[33m2bbe929[m feat: Comprehensive mobile performance optimizations
+A	public/images/firma-min.png
+A	public/images/firma2-min.png
+A	public/images/profile-min.jpg
+M	src/app/globals.css
+M	src/app/layout.tsx
+M	src/components/CustomCursor.tsx
+M	src/components/Hero.tsx
+A	src/components/OptimizedImage.tsx
+M	src/components/StructuredData.tsx
+M	src/data/personalData.ts
+A	src/hooks/useDeviceCapabilities.ts
+[33m273084d[m feat: Major update - libraries, SEO optimization and performance improvements
+M	package-lock.json
+M	src/app/layout.tsx
+M	src/app/page.tsx
+M	src/components/Projects.tsx
+A	src/components/StructuredData.tsx
+[33m7217807[m fix: Improve favicon configuration and PWA manifest
+M	public/site.webmanifest
+D	src/app/favicon.ico
+M	src/app/layout.tsx
+[33ma8a9b7c[m chore: Update Next.js to version 15.4.6
+A	package-lock.json
+M	package.json
+[33m05e4b36[m feat: Consolidate projects 1-4 into single Ionic app with image carousel
+A	.vscode/settings.json
+M	src/components/ProjectDetailModal.tsx
+M	src/data/portfolio.ts
+M	src/data/projectsData.ts
+[33m1e749d5[m feat: Complete portfolio update with 13 projects and updated images
+A	public/images/01.Lotes.png
+A	public/images/02.Albaranes.png
+D	public/images/02_app_movil_ionic.jpg
+A	public/images/03.Inventario.png
+A	public/images/04.Historico.png
+A	public/images/05.API_Almacen.png
+A	public/images/06.API_OnVentanas.png
+A	public/images/07.Libreria_PrefGest.png
+A	public/images/08.Gestion_estanterias_almacen.png
+A	public/images/09.Descarga_albaranes_servicio.png
+A	public/images/10.Logger_personalizado.png
+A	public/images/11.Radiouri_crestine.png
+A	public/images/12.Radios_cristianas.png
+A	public/images/13.World_christian_radios.png
+M	public/pdf/CV_Stanus_DanielCalin.pdf
+M	src/data/projectsData.ts
+[33mc2b6ff7[m feat: Update projectsData with detailed real project information
+M	src/data/projectsData.ts
+[33m1c743d3[m fix: Remove basePath configuration for GitHub Pages user repository
+M	next.config.ts
+[33m6dc5543[m feat: Add project detail modal, update projects data, and improve layout
+M	next.config.ts
+D	package-lock.json
+M	package.json
+D	pnpm-lock.yaml
+A	public/images/02_app_movil_ionic.jpg
+A	public/pdf/CV_Stanus_DanielCalin.pdf
+M	src/app/favicon.ico
+M	src/app/layout.tsx
+A	src/app/not-found.tsx
+M	src/components/Footer.tsx
+A	src/components/ProjectDetailModal.tsx
+M	src/components/Projects.tsx
+M	src/data/projectsData.ts
