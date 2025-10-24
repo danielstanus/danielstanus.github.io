@@ -119,5 +119,15 @@ export const projectsData: ProjectItem[] = [
     demoLink: "https://worldchristianradios.com",
     imageUrl: "/images/13.World_christian_radios.png",
     date: "2024-11-20"
+  },
+  {
+    id: 14,
+    title: "YouTube Downloader",
+    description: "Aplicación de escritorio con interfaz moderna para descargar audio y video de YouTube con múltiples opciones de calidad.",
+    longDescription: "Aplicación de escritorio desarrollada en Python con tkinter y tema Sun Valley para descargar contenido de YouTube. Permite descargar audio en MP3 con diferentes calidades (máxima, 128K, 192K), videos en formato original o MP4 con resoluciones desde 480p hasta 4K, incluir metadatos y miniaturas, y procesar múltiples enlaces simultáneamente. La aplicación gestiona automáticamente la instalación de FFmpeg, utiliza yt-dlp como motor de descarga, incluye barra de progreso en tiempo real, y organiza las descargas en una carpeta personalizable con nombres sanitizados.",
+    technologies: ["Python", "tkinter", "yt-dlp", "FFmpeg", "sv_ttk", "requests", "threading"],
+    demoLink: "",
+    imageUrl: "/images/14.YoutubeDownloader.png",
+    date: "2025-01-20"
   }
 ];
