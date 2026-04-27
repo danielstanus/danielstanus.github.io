@@ -5,7 +5,7 @@
   "homepage": "https://danielstanus.github.io/mi-portafolio",
   "scripts": {
     "dev": "next dev --turbopack",
-    "deploy": "npm run build && touch out/.nojekyll && gh-pages -d out -t true",
+    "deploy": "npm run build && node -e \"require('fs').writeFileSync('out/.nojekyll', '')\" && gh-pages -d out -t",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
