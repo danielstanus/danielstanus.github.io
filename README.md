@@ -2,7 +2,7 @@
 
 # 🚀 Mi Portafolio — Daniel Stanus
 
-![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
@@ -10,7 +10,7 @@
 ![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Deployed-222222?style=for-the-badge&logo=github&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)
 
-**Portafolio personal desarrollado con Next.js 15, React 19 y TypeScript — con animaciones fluidas, modo oscuro y despliegue automático en GitHub Pages.**
+**Portafolio personal desarrollado con Next.js 16, React 19 y TypeScript — con animaciones fluidas, modo oscuro y despliegue automático en GitHub Pages.**
 
 [🌐 Ver en vivo](https://danielstanus.github.io/mi-portafolio) •
 [📦 Instalación](#-instalación) •
@@ -30,7 +30,7 @@ Portafolio personal construido desde cero con las últimas versiones de Next.js 
 
 ## ✨ Características
 
-- ⚡ **Next.js 15** con Turbopack para desarrollo ultrarrápido
+- ⚡ **Next.js 16** con Turbopack para desarrollo ultrarrápido
 - ⚛️ **React 19** con las últimas APIs
 - 🎨 **Tailwind CSS 3.4** para estilos utilitarios
 - 🌙 **Modo oscuro/claro** con `next-themes`
@@ -101,7 +101,7 @@ Esto ejecuta `next build` exportando a la carpeta `out/` y luego publica el cont
 
 | Tecnología | Versión | Uso |
 |---|---|---|
-| Next.js | 15 | Framework principal |
+| Next.js | 16 | Framework principal |
 | React | 19 | UI |
 | TypeScript | 5.7 | Tipado estático |
 | Tailwind CSS | 3.4 | Estilos |
