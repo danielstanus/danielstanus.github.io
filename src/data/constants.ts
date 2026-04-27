@@ -17,7 +17,7 @@ export const SOCIALS = [
   },
   {
     name: 'LinkedIn',
-    url: 'https://linkedin.com/in/danielstanus', // Adjust to your actual LinkedIn URL
+    url: 'https://www.linkedin.com/in/daniel-stanus/',
     icon: FaLinkedin,
     title: 'LinkedIn',
   },
@@ -29,7 +29,7 @@ export const SOCIALS = [
   },
   {
     name: 'CV',
-    url: '/CV-DanielStanus.pdf', // This assumes you'll put your CV in the public folder
+    url: '/pdf/Daniel_Calin_Stanus_CV_2026_extendido_compressed.pdf',
     icon: FaFileAlt,
     title: 'Download CV',
   },
