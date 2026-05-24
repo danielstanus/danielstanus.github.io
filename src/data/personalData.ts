@@ -10,7 +10,7 @@ export const personalData = {
   es: {
     title: "Desarrollador Full Stack & Responsable de Departamento Informático",
     location: "Madrid, España",
-    bio: "Desarrollador Full Stack con más de 8 años de experiencia especializado en tecnologías .NET, PHP, React y Angular. Experto en desarrollo de aplicaciones web empresariales y soluciones multiplataforma. Experiencia sólida en la implementación de arquitecturas escalables utilizando C#, PHP y JS/TS.",
+    bio: "Full Stack Developer · +8 años de experiencia · .NET, PHP, React, Angular · Responsable de Departamento IT en Madrid.",
     languages: [
       { language: "Español", level: "Nativo" },
       { language: "Inglés", level: "Intermedio" },
@@ -25,7 +25,7 @@ export const personalData = {
   en: {
     title: "Full Stack Developer & IT Department Head",
     location: "Madrid, Spain",
-    bio: "Full Stack Developer with over 8 years of experience specializing in .NET, PHP, React, and Angular technologies. Expert in enterprise web applications development and multiplatform solutions. Solid experience in implementing scalable architectures using C#, PHP, and JS/TS.",
+    bio: "Full Stack Developer · 8+ years of experience · .NET, PHP, React, Angular · IT Department Head based in Madrid.",
     languages: [
       { language: "Spanish", level: "Native" },
       { language: "English", level: "Intermediate" },
@@ -40,7 +40,7 @@ export const personalData = {
   ro: {
     title: "Dezvoltator Full Stack & Șef Departament Informatică",
     location: "Madrid, Spania",
-    bio: "Dezvoltator Full Stack cu peste 8 ani de experiență, specializat în tehnologii .NET, PHP, React și Angular. Expert în dezvoltarea de aplicații web de întreprindere și soluții multiplatformă. Experiență solidă în implementarea de arhitecturi scalabile folosind C#, PHP și JS/TS.",
+    bio: "Dezvoltator Full Stack · +8 ani experiență · .NET, PHP, React, Angular · Șef Departament IT în Madrid.",
     languages: [
       { language: "Spaniolă", level: "Nativ" },
       { language: "Engleză", level: "Intermediar" },

@@ -66,8 +66,9 @@ const Hero: React.FC = () => {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center bg-background dark:bg-background pt-12 md:pt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="text-center md:text-left relative overflow-hidden">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          {/* Columna texto — en móvil aparece DESPUÉS de la imagen */}
+          <div className="text-center md:text-left relative overflow-hidden order-2 md:order-1">
             {/* Fondo decorativo con gradiente animado */}
             <div className="absolute -inset-1/4 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 rounded-full blur-3xl opacity-50 animate-spin-slow -z-10"></div>
             
@@ -95,10 +96,22 @@ const Hero: React.FC = () => {
             
             <h2 className="text-2xl md:text-3xl text-foreground-secondary mb-6 transform hover:translate-x-2 transition-transform duration-300">{currentData.title}</h2>
             
-            <p className="text-foreground-secondary max-w-lg mx-auto md:mx-0 mb-8 leading-relaxed relative">
+            <p className="text-foreground-secondary max-w-lg mx-auto md:mx-0 mb-5 leading-relaxed relative font-mono text-sm tracking-wide">
               {currentData.bio}
               <span className="absolute bottom-0 left-0 w-1/3 h-px bg-gradient-to-r from-primary/50 to-transparent"></span>
             </p>
+
+            {/* Tech pills */}
+            <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-6">
+              {['.NET', 'PHP', 'React', 'Angular', 'TypeScript', 'C#'].map((tech) => (
+                <span
+                  key={tech}
+                  className="px-2 py-0.5 text-xs font-mono rounded border border-primary/30 bg-primary/5 text-primary hover:bg-primary/15 transition-colors cursor-default"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
             
             <div className="flex flex-wrap gap-4 justify-center md:justify-start mb-8">
               <a
@@ -161,7 +174,8 @@ const Hero: React.FC = () => {
             </div>
           </div>
           
-          <div className="flex flex-col items-center">
+          {/* Columna imagen — en móvil aparece PRIMERO */}
+          <div className="flex flex-col items-center order-1 md:order-2">
             {/* Audio element is now created programmatically in useEffect */}
             
             {/* Contenedor de imagen con efecto avanzado */}
