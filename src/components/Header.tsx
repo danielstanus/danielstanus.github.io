@@ -14,7 +14,7 @@ const Header: React.FC = () => {
   const { t } = useLanguage();
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen(prev => !prev);
   };
 
   const navLinks = [
@@ -98,37 +98,53 @@ const Header: React.FC = () => {
               onClick={toggleMenu}
               className="text-foreground hover:text-primary transition-colors cursor-pointer"
               aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+              aria-expanded={isMenuOpen}
             >
-              {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
+              <span
+                style={{
+                  display: 'inline-block',
+                  transition: 'transform 0.3s ease',
+                  transform: isMenuOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+                }}
+              >
+                {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
+              </span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <nav className="md:hidden bg-background/90 backdrop-blur-sm border-t border-border">
-          <div className="flex flex-col space-y-4 p-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.id}
-                to={link.id}
-                smooth
-                duration={500}
-                offset={-70}
-                className={`px-2 py-2 rounded-lg transition-colors duration-200 text-lg cursor-pointer ${
-                  activeSection === link.id 
-                    ? 'bg-primary/10 text-primary font-semibold' 
-                    : 'text-foreground hover:text-primary hover:bg-primary/5 font-medium'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {link.title}
-              </Link>
-            ))}
-          </div>
-        </nav>
-      )}
+      {/* Mobile Navigation — animación suave con max-height + opacity */}
+      <nav
+        className="md:hidden bg-background/95 backdrop-blur-sm border-t border-border overflow-hidden"
+        style={{
+          maxHeight: isMenuOpen ? '400px' : '0px',
+          opacity: isMenuOpen ? 1 : 0,
+          transition: 'max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease',
+          pointerEvents: isMenuOpen ? 'auto' : 'none',
+        }}
+        aria-hidden={!isMenuOpen}
+      >
+        <div className="flex flex-col space-y-4 p-6">
+          {navLinks.map((link) => (
+            <Link
+              key={link.id}
+              to={link.id}
+              smooth
+              duration={500}
+              offset={-70}
+              className={`px-2 py-2 rounded-lg transition-colors duration-200 text-lg cursor-pointer ${
+                activeSection === link.id 
+                  ? 'bg-primary/10 text-primary font-semibold' 
+                  : 'text-foreground hover:text-primary hover:bg-primary/5 font-medium'
+              }`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {link.title}
+            </Link>
+          ))}
+        </div>
+      </nav>
     </header>
   );
 };
