@@ -33,7 +33,7 @@ export const metadata = {
   },
   description: 'Portafolio profesional de Daniel Calin Stanus, Desarrollador Full Stack especializado en .NET, PHP, React y Angular. Con experiencia en desarrollo web y aplicaciones empresariales.',
   keywords: [
-    '.NET', 'PHP', 'React', 'Angular', 'Full Stack', 'Desarrollador', 'Madrid', 
+    '.NET', 'PHP', 'React', 'Angular', 'Full Stack', 'Desarrollador', 'Madrid',
     'Desarrollo Web', 'Aplicaciones Empresariales', 'C#', 'TypeScript', 'JavaScript',
     'SQL Server', 'API REST', 'Ionic', 'Android', 'Programador', 'Software Developer'
   ],
@@ -83,10 +83,10 @@ export const metadata = {
     siteName: 'Daniel Calin Stanus Portfolio',
     images: [
       {
-        url: 'https://danielstanus.github.io/images/profile-min.jpg',
+        url: 'https://danielstanus.github.io/images/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Daniel Calin Stanus - Desarrollador Full Stack',
+        alt: 'Daniel Calin Stanus | Desarrollador Full Stack & IT Manager',
       },
     ],
   },
@@ -95,10 +95,10 @@ export const metadata = {
     title: 'Daniel Calin Stanus | Desarrollador Full Stack',
     description: 'Portafolio profesional de Daniel Calin Stanus, Desarrollador Full Stack especializado en .NET, PHP, React y Angular.',
     creator: '@danielstanus',
-    images: ['https://danielstanus.github.io/images/profile-min.jpg'],
+    images: ['https://danielstanus.github.io/images/og-image.png'],
   },
   verification: {
-    google: 'google-site-verification-code', // Reemplazar con código real si tienes
+    google: 'v-QoxjC0JIBW1y6rViIsCzoKdo3qvURAODgjNy5sSQM',
   },
   other: {
     'geo.region': 'ES-MD',

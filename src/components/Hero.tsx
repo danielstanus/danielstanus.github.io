@@ -1,40 +1,26 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { personalData } from '../data/personalData';
 import { FaGithub, FaEnvelope, FaLinkedin, FaLaptopCode, FaPause, FaPlay, FaDownload } from 'react-icons/fa';
 import { Link } from 'react-scroll';
 import { useLanguage } from '../context/LanguageContext';
+import { useAudio } from '../hooks/useAudio';
 
 const Hero: React.FC = () => {
   const { language, t } = useLanguage();
   const currentData = personalData[language as keyof typeof personalData] as any;
-  const audioRef = useRef<HTMLAudioElement>(null);
   const [isHovering, setIsHovering] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [showPlayButton, setShowPlayButton] = useState(false);
+  
+  // Custom hook to cleanly manage audio lifecycle
+  const { isPlaying, toggle: toggleAudio } = useAudio('/audio/epic-hover.mp3', 0.5);
   
   // Fix hydration mismatch by only rendering client-specific elements after mount
   useEffect(() => {
     setIsClient(true);
-  }, []);
-  
-  useEffect(() => {
-    const audio = new Audio('/audio/epic-hover.mp3');
-    audio.volume = 0.5;
-    
-    if (audioRef.current === null) {
-      audioRef.current = audio;
-    }
-    
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
   }, []);
 
   const handleMouseEnter = () => {
@@ -45,17 +31,6 @@ const Hero: React.FC = () => {
   const handleMouseLeave = () => {
     setIsHovering(false);
     setShowPlayButton(false);
-  };
-
-  const toggleAudio = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
   };
 
   // Pre-calculate particle positions to avoid hydration mismatch
