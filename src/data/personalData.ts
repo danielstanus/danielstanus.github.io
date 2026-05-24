@@ -7,7 +7,7 @@ export const personalData = {
   githubUrl: "https://github.com/danielstanus",
   linkedinUrl: "https://www.linkedin.com/in/daniel-calin-stanus-1aa6a0b5",
   cvUrl: "/pdf/Daniel_Calin_Stanus_CV_2026_extendido_compressed.pdf",
-  formspreeId: "xwpvlpgr", // Reemplaza esto con tu ID real de Formspree (ej. 'xwpvlpgr') o usa la variable de entorno NEXT_PUBLIC_FORMSPREE_KEY
+  formspreeId: "", // Se lee desde la variable de entorno NEXT_PUBLIC_FORMSPREE_KEY en .env.local
   es: {
     title: "Desarrollador Full Stack & Responsable de Departamento Informático",
     location: "Madrid, España",

@@ -42,11 +42,11 @@ export default function Home() {
               <Projects />
             </div>
           </section>
-          {/* <section id="contact" className="pt-6 pb-8" aria-label="Información de contacto">
+          <section id="contact" className="pt-6 pb-8" aria-label="Información de contacto">
             <div className="container mx-auto px-4">
               <Contact />
             </div>
-          </section> */}
+          </section>
         </main>
         <Footer />
       </>

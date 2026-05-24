@@ -23,7 +23,8 @@ const Header: React.FC = () => {
     { id: "experience", title: t("nav.experience") },
     { id: "skills", title: t("nav.skills") },
     { id: "education", title: t("nav.education") },
-    { id: "projects", title: t("nav.projects") }
+    { id: "projects", title: t("nav.projects") },
+    { id: "contact", title: t("nav.contact") }
   ];
 
   useEffect(() => {
