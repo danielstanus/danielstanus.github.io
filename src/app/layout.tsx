@@ -98,7 +98,7 @@ export const metadata = {
     images: ['https://danielstanus.github.io/images/og-image.png'],
   },
   verification: {
-    google: 'v-QoxjC0JIBW1y6rViIsCzoKdo3qvURAODgjNy5sSQM',
+    google: '7Ih6q3Ma0zN0r57iol42Bp7wuTI3h2CFexb1CVNM03k',
   },
   other: {
     'geo.region': 'ES-MD',

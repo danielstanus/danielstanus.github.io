@@ -30,20 +30,45 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError('');
-    
+    setSubmitSuccess(false);
+
+    // Obtener la clave de Formspree desde variables de entorno o desde personalData
+    const formspreeKey = process.env.NEXT_PUBLIC_FORMSPREE_KEY || personalData.formspreeId;
+
+    if (!formspreeKey || formspreeKey === "xwpvlpgr" || formspreeKey.trim() === "") {
+      // Si no está configurada o es el placeholder de ejemplo, mostramos error instructivo
+      console.warn("Formspree ID no configurado. Por favor, actualiza tu ID en src/data/personalData.ts o añade NEXT_PUBLIC_FORMSPREE_KEY");
+    }
+
     try {
-      // This is a placeholder for your actual form submission logic
-      // You could use a service like EmailJS, Formspree, or your own backend
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulating API call
-      
-      setSubmitSuccess(true);
-      setFormData({ name: '', email: '', message: '' });
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setSubmitSuccess(false);
-      }, 5000);
-    } catch (error) {
+      const response = await fetch(`https://formspree.io/f/${formspreeKey || 'xwpvlpgr'}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `Nuevo mensaje de contacto en Portafolio - ${formData.name}`
+        })
+      });
+
+      if (response.ok) {
+        setSubmitSuccess(true);
+        setFormData({ name: '', email: '', message: '' });
+        
+        // Resetear mensaje de éxito tras 6 segundos
+        setTimeout(() => {
+          setSubmitSuccess(false);
+        }, 6000);
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.error || t("contact.errorMessage"));
+      }
+    } catch (error: any) {
+      console.error("Formspree submission error:", error);
       setSubmitError(t("contact.errorMessage"));
     } finally {
       setIsSubmitting(false);
