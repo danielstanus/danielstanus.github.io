@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaTimes, FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import InnerImageZoom from 'react-inner-image-zoom';
 import 'react-inner-image-zoom/lib/styles.min.css';
@@ -30,11 +30,96 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { t } = useLanguage();
   
-  if (!isOpen || !project) return null;
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousUnfocusedElement = useRef<HTMLElement | null>(null);
 
   // Determinar si usar múltiples imágenes o una sola
-  const images = project.imageUrls && project.imageUrls.length > 0 ? project.imageUrls : (project.imageUrl ? [project.imageUrl] : []);
+  const images = project?.imageUrls && project.imageUrls.length > 0 ? project.imageUrls : (project?.imageUrl ? [project.imageUrl] : []);
   const hasMultipleImages = images.length > 1;
+
+  useEffect(() => {
+    if (isOpen) {
+      // Guardar el elemento previamente enfocado
+      if (typeof document !== 'undefined') {
+        previousUnfocusedElement.current = document.activeElement as HTMLElement;
+      }
+      
+      // Bloquear scroll de la página de fondo
+      document.body.style.overflow = 'hidden';
+
+      // Poner foco en el modal
+      setTimeout(() => {
+        if (modalRef.current) {
+          // Intentar enfocar el botón de cerrar o el contenedor principal
+          const closeButton = modalRef.current.querySelector('button[aria-label]');
+          if (closeButton) {
+            (closeButton as HTMLElement).focus();
+          } else {
+            modalRef.current.focus();
+          }
+        }
+      }, 50);
+    }
+
+    return () => {
+      // Restaurar scroll de fondo al desmontarse o cerrarse
+      document.body.style.overflow = 'unset';
+      
+      // Devolver foco al elemento original que abrió el modal
+      if (previousUnfocusedElement.current) {
+        previousUnfocusedElement.current.focus();
+      }
+    };
+  }, [isOpen]);
+
+  // Manejar eventos de teclado (Escape y Trampa de foco Tab)
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Tecla Escape para cerrar
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+
+      // Trampa de foco (Tab)
+      if (e.key === 'Tab') {
+        if (!modalRef.current) return;
+
+        // Buscar todos los elementos enfocables del modal
+        const focusableElements = modalRef.current.querySelectorAll(
+          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+        );
+
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0] as HTMLElement;
+        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+        if (e.shiftKey) {
+          // Si pulsa Shift + Tab y está en el primer elemento, salta al último
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          // Si pulsa Tab y está en el último elemento, salta al primero
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen || !project) return null;
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
@@ -69,7 +154,12 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
       onClick={onClose} // Close on overlay click
     >
       <div 
-        className="bg-background-secondary rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 relative transform transition-all duration-300 scale-95 opacity-0 animate-modal-appear"
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        tabIndex={-1}
+        className="bg-background-secondary rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 relative transform transition-all duration-300 scale-95 opacity-0 animate-modal-appear focus:outline-none"
         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
       >
         <button 
@@ -136,7 +226,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
           </div>
         )}    
         
-        <h2 className="text-3xl font-bold text-primary mb-3">{project.title}</h2>
+        <h2 id="modal-title" className="text-3xl font-bold text-primary mb-3">{project.title}</h2>
         
         {project.date && (
           <p className="text-sm text-foreground-secondary mb-1">{t("projects.dateLabel")} {project.date}</p>
