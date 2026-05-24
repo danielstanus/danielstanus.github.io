@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { educationData } from '../data/educationData';
+import { useLanguage } from '../context/LanguageContext';
 
 interface EducationItem {
   id: string | number;
@@ -16,6 +18,8 @@ interface EducationItem {
 
 const Education: React.FC = () => {
   const [activeId, setActiveId] = useState<string | number | null>(null);
+  const { language, t } = useLanguage();
+  const localizedEducation = educationData[language] || educationData['es'];
 
   const toggleDetails = (id: string | number) => {
     setActiveId(activeId === id ? null : id);
@@ -24,10 +28,10 @@ const Education: React.FC = () => {
   return (
     <section id="education" className="py-12 md:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-title pb-2 mb-12">Formación Académica</h2>
+        <h2 className="section-title pb-2 mb-12">{t("education.title")}</h2>
         
         <div className="space-y-8 md:space-y-12">
-          {educationData.map((education: EducationItem) => (
+          {localizedEducation.map((education: EducationItem) => (
             <div 
               key={education.id} 
               className="border-l-2 border-primary pl-6 relative group transition-all hover:border-l-3 hover:border-primary"
@@ -47,10 +51,12 @@ const Education: React.FC = () => {
                 <div className="flex flex-wrap justify-between items-start gap-2">
                   <p className="text-primary font-medium flex items-center gap-2">
                     {education.logo && (
-                      <img 
-                        src={education.logo} 
+                      <Image
+                        src={education.logo}
                         alt={`${education.institution} logo`}
-                        className="w-6 h-6 object-contain"
+                        width={24}
+                        height={24}
+                        className="object-contain"
                       />
                     )}
                     {education.institution}
@@ -65,7 +71,7 @@ const Education: React.FC = () => {
                     
                     {education.skills && (
                       <div className="mt-3">
-                        <p className="text-foreground text-sm font-medium mb-2">Competencias adquiridas:</p>
+                        <p className="text-foreground text-sm font-medium mb-2">{t("education.skillsLabel")}</p>
                         <div className="flex flex-wrap gap-2">
                           {education.skills.map(skill => (
                             <span key={skill} className="badge badge-primary">{skill}</span>
@@ -85,7 +91,7 @@ const Education: React.FC = () => {
                       toggleDetails(education.id);
                     }}
                   >
-                    {activeId === education.id ? 'Mostrar menos' : 'Mostrar más'}
+                    {activeId === education.id ? t("education.showLess") : t("education.showMore")}
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
                       className={`ml-1 w-4 h-4 transition-transform duration-200 ${activeId === education.id ? 'rotate-180' : ''}`} 

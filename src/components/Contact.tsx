@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { FaPaperPlane, FaLinkedin, FaGithub, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import { personalData } from '../data/personalData';
+import { useLanguage } from '../context/LanguageContext';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,9 @@ const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const { language, t } = useLanguage();
+  
+  const currentData = personalData[language as keyof typeof personalData] as any;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -40,7 +44,7 @@ const Contact: React.FC = () => {
         setSubmitSuccess(false);
       }, 5000);
     } catch (error) {
-      setSubmitError('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+      setSubmitError(t("contact.errorMessage"));
     } finally {
       setIsSubmitting(false);
     }
@@ -49,14 +53,14 @@ const Contact: React.FC = () => {
   return (
     <section id="contact" className="py-12 md:py-16">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-        <h2 className="section-title text-center mb-12">Contacto</h2>
+        <h2 className="section-title text-center mb-12">{t("contact.title")}</h2>
         <div className="grid md:grid-cols-2 gap-8">
           {/* Formulario de contacto */}
           <div className="bg-background-secondary p-6 rounded-lg shadow-md border border-border">
-            <h3 className="text-xl font-semibold mb-6 text-primary">Envíame un mensaje</h3>
+            <h3 className="text-xl font-semibold mb-6 text-primary">{t("contact.sendMsg")}</h3>
             {submitSuccess ? (
               <div className="bg-green-900/20 border border-green-700 text-green-400 px-4 py-3 rounded mb-6">
-                ¡Gracias por tu mensaje! Me pondré en contacto contigo pronto.
+                {t("contact.successMessage")}
               </div>
             ) : submitError ? (
               <div className="bg-red-900/20 border border-red-700 text-red-400 px-4 py-3 rounded mb-6">
@@ -66,12 +70,13 @@ const Contact: React.FC = () => {
             <form onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="name" className="block text-foreground font-medium mb-1">
-                  Nombre
+                  {t("contact.nameLabel")}
                 </label>
                 <input
                   type="text"
                   id="name"
                   name="name"
+                  placeholder={t("contact.namePlaceholder")}
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -80,12 +85,13 @@ const Contact: React.FC = () => {
               </div>
               <div>
                 <label htmlFor="email" className="block text-foreground font-medium mb-1">
-                  Email
+                  {t("contact.emailLabel")}
                 </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
+                  placeholder={t("contact.emailPlaceholder")}
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -94,11 +100,12 @@ const Contact: React.FC = () => {
               </div>
               <div>
                 <label htmlFor="message" className="block text-foreground font-medium mb-1">
-                  Mensaje
+                  {t("contact.messageLabel")}
                 </label>
                 <textarea
                   id="message"
                   name="message"
+                  placeholder={t("contact.messagePlaceholder")}
                   value={formData.message}
                   onChange={handleChange}
                   rows={4}
@@ -111,9 +118,9 @@ const Contact: React.FC = () => {
                 disabled={isSubmitting}
                 className={`w-full bg-primary text-white font-medium py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center justify-center gap-2">
                   <FaPaperPlane className="h-4 w-4" />
-                  {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
+                  {isSubmitting ? t("contact.sending") : t("contact.send")}
                 </div>
               </button>
             </form>
@@ -121,12 +128,12 @@ const Contact: React.FC = () => {
 
           {/* Información de contacto */}
           <div className="bg-gradient-to-br from-primary/20 to-primary/5 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-6 text-primary">Información de contacto</h3>
+            <h3 className="text-xl font-semibold mb-6 text-primary">{t("contact.infoLabel")}</h3>
             <ul className="space-y-6 text-slate">
               <li className="flex items-start">
                 <FaEnvelope className="text-primary mt-1 mr-3" />
                 <div>
-                  <span className="font-medium text-foreground mb-1 block">Email:</span>
+                  <span className="font-medium text-foreground mb-1 block">{t("about.email")}:</span>
                   <a 
                     href={`mailto:${personalData.email}`}
                     className="text-foreground-secondary hover:text-primary transition-colors"
@@ -138,7 +145,7 @@ const Contact: React.FC = () => {
               <li className="flex items-start">
                 <FaPhone className="text-primary mt-1 mr-3" />
                 <div>
-                  <span className="font-medium text-foreground mb-1 block">Teléfono:</span>
+                  <span className="font-medium text-foreground mb-1 block">{t("about.phone")}:</span>
                   <a 
                     href={`tel:${personalData.phone}`}
                     className="text-foreground-secondary hover:text-primary transition-colors"
@@ -150,15 +157,15 @@ const Contact: React.FC = () => {
               <li className="flex items-start">
                 <FaMapMarkerAlt className="text-primary mt-1 mr-3" />
                 <div>
-                  <span className="font-medium text-foreground mb-1 block">Ubicación:</span>
-                  <span className="text-foreground-secondary">{personalData.location}</span>
+                  <span className="font-medium text-foreground mb-1 block">{t("about.location")}:</span>
+                  <span className="text-foreground-secondary">{currentData.location}</span>
                 </div>
               </li>
             </ul>
 
             {/* Redes Sociales */}
             <div className="mt-8 pt-6 border-t border-border">
-              <h4 className="text-lg font-semibold mb-4 text-foreground">Redes Sociales</h4>
+              <h4 className="text-lg font-semibold mb-4 text-foreground">{t("contact.socialsLabel")}</h4>
               <div className="flex space-x-4">
                 <a 
                   href={personalData.linkedinUrl}

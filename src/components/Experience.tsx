@@ -1,13 +1,15 @@
-"use client"
+'use client';
 
-import type React from "react"
-import { useState } from "react"
+import React, { useState } from "react"
 import { experienceData } from "../data/experienceData"
 import { motion } from "framer-motion"
 import { FaCalendarAlt, FaMapMarkerAlt, FaBriefcase, FaCircle, FaDotCircle } from "react-icons/fa"
+import { useLanguage } from "../context/LanguageContext"
 
 const Experience: React.FC = () => {
   const [activeId, setActiveId] = useState<number | null>(null)
+  const { language, t } = useLanguage()
+  const localizedExperience = experienceData[language] || experienceData['es']
 
   return (
     <section id="experience" className="py-16">
@@ -21,11 +23,11 @@ const Experience: React.FC = () => {
           {/* <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/5">
             <FaBriefcase className="text-primary text-2xl" />
           </div> */}
-          <h2 className="section-title pb-2 mb-6">Experiencia Profesional</h2>
+          <h2 className="section-title pb-2 mb-6">{t("experience.title")}</h2>
         </motion.div>
-
+ 
         <div className="space-y-8">
-          {experienceData.map((experience, index) => (
+          {localizedExperience.map((experience, index) => (
             <motion.div
               key={experience.id}
               className={`

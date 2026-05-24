@@ -4,24 +4,26 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import ThemeToggle from './ThemeToggle';
+import LanguageSelector from './LanguageSelector';
+import { useLanguage } from '../context/LanguageContext';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [activeSection, setActiveSection] = useState('home');
+  const { t } = useLanguage();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const navLinks = [
-    { id: "home", title: "Inicio" },
-    { id: "about", title: "Sobre mí" },
-    { id: "experience", title: "Experiencia" },
-    { id: "skills", title: "Habilidades" },
-    { id: "education", title: "Formación" },
-    { id: "projects", title: "Proyectos" }
-    // { id: "contact", title: "Contacto" }
+    { id: "home", title: t("nav.home") },
+    { id: "about", title: t("nav.about") },
+    { id: "experience", title: t("nav.experience") },
+    { id: "skills", title: t("nav.skills") },
+    { id: "education", title: t("nav.education") },
+    { id: "projects", title: t("nav.projects") }
   ];
 
   useEffect(() => {
@@ -84,11 +86,13 @@ const Header: React.FC = () => {
                 {link.title}
               </Link>
             ))}
+            <LanguageSelector />
             <ThemeToggle />
           </nav>
 
           {/* Mobile Menu Button and Theme Toggle */}
-          <div className="md:hidden flex items-center gap-4">
+          <div className="md:hidden flex items-center gap-3">
+            <LanguageSelector />
             <ThemeToggle />
             <button
               onClick={toggleMenu}

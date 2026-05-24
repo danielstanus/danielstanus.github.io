@@ -1,26 +1,29 @@
 'use client';
 
 import React, { useState } from 'react';
-import { projectsData, ProjectItem as Project } from '../data/projectsData'; // Assuming ProjectItem is the correct interface name in projectsData.ts
+import Image from 'next/image';
+import { projectsData, ProjectItem as Project } from '../data/projectsData';
 import { FaGithub, FaExternalLinkAlt, FaInfoCircle } from 'react-icons/fa';
-import ProjectDetailModal from './ProjectDetailModal'; // Import the modal
-
-// The Project interface is now imported from projectsData.ts as ProjectItem as Project.
+import ProjectDetailModal from './ProjectDetailModal';
+import { useLanguage } from '../context/LanguageContext';
 
 const Projects: React.FC = () => {
-  const [projectForModal, setProjectForModal] = useState<Project | null>(null); // Renamed and typed
+  const [projectForModal, setProjectForModal] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filter, setFilter] = useState<string | null>(null);
+  const { language, t } = useLanguage();
+
+  const localizedProjects = projectsData[language] || projectsData['es'];
   
   // Extract unique technologies for filter
   const allTechnologies = Array.from(
-    new Set(projectsData.flatMap((project: Project) => project.technologies))
+    new Set(localizedProjects.flatMap((project: Project) => project.technologies))
   ).sort();
 
   const filteredProjects = filter 
-    ? projectsData.filter((project: Project) => 
+    ? localizedProjects.filter((project: Project) => 
         project.technologies.includes(filter))
-    : projectsData;
+    : localizedProjects;
 
   const featuredProjects = filteredProjects.filter((project: Project) => project.featured);
   const regularProjects = filteredProjects.filter((project: Project) => !project.featured);
@@ -41,17 +44,17 @@ const Projects: React.FC = () => {
   return (
     <section id="projects" className="py-12 md:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-title pb-2 mb-6">Proyectos</h2>
+        <h2 className="section-title pb-2 mb-6">{t("projects.title")}</h2>
         
         {/* Technology filter */}
         <div className="mb-10">
           <div className="flex flex-wrap items-center gap-2 mb-4">
-            <span className="text-foreground font-medium">Filtrar por tecnología:</span>
+            <span className="text-foreground font-medium">{t("projects.filterLabel")}</span>
             <button 
               onClick={() => setFilter(null)}
               className={`badge ${!filter ? 'badge-primary' : 'badge-primary/50'} cursor-pointer`}
             >
-              Todos
+              {t("projects.all")}
             </button>
             {allTechnologies.map(tech => (
               <button
@@ -64,8 +67,8 @@ const Projects: React.FC = () => {
             ))}
           </div>
           <p className="text-sm text-foreground">
-            Mostrando {sortedProjects.length} de {projectsData.length} proyectos
-            {filter && ` con tecnología: ${filter}`}
+            {t("projects.showing")} {sortedProjects.length} {t("projects.of")} {localizedProjects.length} {t("projects.projectsLabel")}
+            {filter && `${t("projects.withTech")}${filter}`}
           </p>
         </div>
 
@@ -79,19 +82,18 @@ const Projects: React.FC = () => {
             >
               <div 
                 className="h-64 relative overflow-hidden bg-background-secondary cursor-pointer"
-                onClick={() => handleProjectClick(project)} // Pass the whole project object
+                onClick={() => handleProjectClick(project)}
               >
                 {project.imageUrl ? (
                   <>
-                    <img 
-                      src={project.imageUrl} 
+                    <Image
+                      src={project.imageUrl}
                       alt={`Captura de pantalla del proyecto ${project.title} - ${project.description}`}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    {/* The overlay might not be as effective with object-contain, consider removing or adjusting if needed */}
-                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div> 
+                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-background-secondary">
@@ -100,8 +102,6 @@ const Projects: React.FC = () => {
                     </span>
                   </div>
                 )}
-
-                {/* Featured badge removed as per request */}
 
                 {/* Date badge if available */}
                 {project.date && (
@@ -114,7 +114,7 @@ const Projects: React.FC = () => {
               <div className="p-6">
                 <h3 
                   className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors cursor-pointer"
-                  onClick={() => handleProjectClick(project)} // Open modal on title click
+                  onClick={() => handleProjectClick(project)}
                 >
                   {project.title}
                 </h3>
@@ -163,11 +163,11 @@ const Projects: React.FC = () => {
                   
                   {project.longDescription && (
                     <button 
-                      onClick={() => handleProjectClick(project)} // Pass the whole project object
+                      onClick={() => handleProjectClick(project)}
                       className="flex items-center text-xs text-foreground hover:text-primary transition-colors"
                     >
                       <FaInfoCircle className="mr-1" />
-                      Más detalles
+                      {t("projects.moreDetails")}
                     </button>
                   )}
                 </div>
@@ -178,12 +178,12 @@ const Projects: React.FC = () => {
 
         {sortedProjects.length === 0 && (
           <div className="text-center py-10">
-            <p className="text-foreground">No se encontraron proyectos con el filtro seleccionado.</p>
+            <p className="text-foreground">{t("projects.noProjects")}</p>
             <button 
               onClick={() => setFilter(null)}
               className="btn-outline mt-4"
             >
-              Ver todos los proyectos
+              {t("projects.viewAll")}
             </button>
           </div>
         )}

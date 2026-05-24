@@ -1,5 +1,6 @@
 import { Inter, Roboto_Mono } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
+import { LanguageProvider } from '@/context/LanguageContext';
 import CustomCursor from '@/components/CustomCursor';
 import StructuredData from '@/components/StructuredData';
 import './globals.css';
@@ -117,8 +118,10 @@ export default function RootLayout({
       <body className={`${inter.variable} ${robotoMono.variable} bg-background text-foreground relative`}>
         <StructuredData />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <CustomCursor />
-          {children}
+          <LanguageProvider>
+            <CustomCursor />
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import { FaTimes, FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import InnerImageZoom from 'react-inner-image-zoom';
-import 'inner-image-zoom/lib/styles.min.css';
+import 'react-inner-image-zoom/lib/styles.min.css';
+import { useLanguage } from '../context/LanguageContext';
 
 interface Project {
   id: string | number;
@@ -27,6 +28,7 @@ interface ProjectDetailModalProps {
 
 const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { t } = useLanguage();
   
   if (!isOpen || !project) return null;
 
@@ -73,7 +75,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
         <button 
           onClick={onClose} 
           className="absolute top-4 right-4 text-foreground-secondary hover:text-primary transition-colors z-10"
-          aria-label="Close modal"
+          aria-label={t("projects.close")}
         >
           <FaTimes size={24} />
         </button>
@@ -97,14 +99,14 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
                 <button
                   onClick={prevImage}
                   className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 z-10"
-                  aria-label="Imagen anterior"
+                  aria-label={t("projects.prevImage")}
                 >
                   <FaChevronLeft size={16} />
                 </button>
                 <button
                   onClick={nextImage}
                   className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 z-10"
-                  aria-label="Imagen siguiente"
+                  aria-label={t("projects.nextImage")}
                 >
                   <FaChevronRight size={16} />
                 </button>
@@ -120,7 +122,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
                           ? 'bg-primary scale-125' 
                           : 'bg-white/50 hover:bg-white/70'
                       }`}
-                      aria-label={`Ir a imagen ${index + 1}`}
+                      aria-label={`${t("projects.goToImage")} ${index + 1}`}
                     />
                   ))}
                 </div>
@@ -137,16 +139,15 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
         <h2 className="text-3xl font-bold text-primary mb-3">{project.title}</h2>
         
         {project.date && (
-          <p className="text-sm text-foreground-secondary mb-1">Fecha: {project.date}</p>
+          <p className="text-sm text-foreground-secondary mb-1">{t("projects.dateLabel")} {project.date}</p>
         )}
-        {/* Featured badge removed from modal as per request */}
 
         <div className="text-foreground-secondary mb-6 text-base leading-relaxed">
           {formatDescription(project.longDescription || project.description)}
         </div>
 
         <div className="mb-6">
-          <h4 className="text-lg font-semibold text-foreground mb-2">Tecnologías Utilizadas:</h4>
+          <h4 className="text-lg font-semibold text-foreground mb-2">{t("projects.techUsed")}</h4>
           <div className="flex flex-wrap gap-2">
             {project.technologies.map(tech => (
               <span key={tech} className="badge badge-primary/80 text-sm">{tech}</span>
@@ -161,9 +162,8 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
               target="_blank" 
               rel="noopener noreferrer"
                className="btn-outline inline-flex items-center gap-2"
-              // className="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200"
             >
-              <FaGithub /> Ver en GitHub
+              <FaGithub /> {t("projects.code")}
             </a>
           )}
           {project.demoLink && (
@@ -173,7 +173,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
               rel="noopener noreferrer"
               className="btn-outline inline-flex items-center gap-2"
             >
-              <FaExternalLinkAlt /> Ver Demo
+              <FaExternalLinkAlt /> {t("projects.viewDemo")}
             </a>
           )}
         </div>

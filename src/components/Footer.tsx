@@ -2,10 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { FaChevronUp, FaDownload } from 'react-icons/fa';
+import { useLanguage } from '../context/LanguageContext';
+import { personalData } from '../data/personalData';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const { t } = useLanguage();
   
   // Scroll to top function
   const scrollToTop = () => {
@@ -35,16 +38,16 @@ const Footer = () => {
         {/* Copyright and CV download link */}
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-foreground-secondary text-xs mb-3 md:mb-0">
-            {currentYear} <span className="text-primary font-medium">Daniel Stanus</span>. Todos los derechos reservados.
+            {currentYear} <span className="text-primary font-medium">Daniel Stanus</span>. {t("footer.rights")}
           </p>
           
           <a 
-            href="/pdf/Daniel_Calin_Stanus_CV_2026_extendido_compressed.pdf" 
+            href={personalData.cvUrl} 
             download 
             className="px-5 py-2 text-sm font-medium rounded-md transition-colors bg-gradient-to-r from-primary to-primary/80 text-white dark:text-primary-foreground hover:from-primary/90 hover:to-primary/70 hover:text-white shadow-sm flex items-center gap-2"
           >
             <FaDownload className="h-4 w-4" />
-            Descargar CV
+            {t("hero.downloadCv")}
           </a>
         </div>
 
@@ -53,7 +56,7 @@ const Footer = () => {
           <button
             onClick={scrollToTop}
             className="fixed bottom-5 right-5 bg-primary text-white dark:text-primary-foreground p-3 rounded-full shadow-lg hover:bg-primary/90 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary z-50"
-            aria-label="Volver arriba"
+            aria-label={t("footer.scrollTop")}
           >
             <FaChevronUp className="h-5 w-5" />
           </button>
