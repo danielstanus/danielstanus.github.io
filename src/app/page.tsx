@@ -8,6 +8,7 @@ import Projects from '../components/Projects';
 import Skills from '../components/Skills';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
+import ScrollReveal from '../components/ScrollReveal';
 
 export default function Home() {
     return (
@@ -19,36 +20,48 @@ export default function Home() {
           </section>
           <section id="about" className="pt-6 pb-8 bg-primary/5" aria-label="Acerca de mí">
             <div className="container mx-auto px-4">
-              <About />
-              </div>
+              <ScrollReveal variant="slideUp" delay={0.1}>
+                <About />
+              </ScrollReveal>
+            </div>
           </section>
           <section id="experience" className="pt-6 pb-8" aria-label="Experiencia profesional">
             <div className="container mx-auto px-4">
-              <Experience />
+              <ScrollReveal variant="slideUp" delay={0.1}>
+                <Experience />
+              </ScrollReveal>
             </div>
           </section>
           <section id="skills" className="pt-6 pb-8 bg-primary/5" aria-label="Habilidades técnicas">
             <div className="container mx-auto px-4">
-              <Skills />
+              <ScrollReveal variant="slideUp" delay={0.1}>
+                <Skills />
+              </ScrollReveal>
             </div>
           </section>
           <section id="education" className="pt-6 pb-8" aria-label="Formación académica">
             <div className="container mx-auto px-4">
-              <Education />
+              <ScrollReveal variant="slideUp" delay={0.1}>
+                <Education />
+              </ScrollReveal>
             </div>
           </section>
           <section id="projects" className="pt-6 pb-8 bg-primary/5" aria-label="Proyectos realizados">
             <div className="container mx-auto px-4">
-              <Projects />
+              <ScrollReveal variant="slideUp" delay={0.1}>
+                <Projects />
+              </ScrollReveal>
             </div>
           </section>
           <section id="contact" className="pt-6 pb-8" aria-label="Información de contacto">
             <div className="container mx-auto px-4">
-              <Contact />
+              <ScrollReveal variant="slideUp" delay={0.1}>
+                <Contact />
+              </ScrollReveal>
             </div>
           </section>
         </main>
         <Footer />
       </>
     );
-  }
+  }

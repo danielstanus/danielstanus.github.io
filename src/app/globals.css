@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Premium scroll behavior — smooth scrolling at CSS level as fallback */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Offset for fixed header */
+}
+
 :root {
   /* Tema claro (predeterminado) */
   --background: 250 251 254;

@@ -17,27 +17,26 @@ const Experience: React.FC = () => {
         <motion.div
           className="flex items-center gap-3 mb-12"
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}
         >
-          {/* <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/5">
-            <FaBriefcase className="text-primary text-2xl" />
-          </div> */}
           <h2 className="section-title pb-2 mb-6">{t("experience.title")}</h2>
         </motion.div>
  
         <div className="space-y-8">
           {localizedExperience.map((experience, index) => (
-            <motion.div
+              <motion.div
               key={experience.id}
               className={`
                 border-l-2 pl-6 relative 
                 ${activeId === experience.id ? "border-primary" : "border-muted dark:border-muted/50"} 
                 transition-all duration-300 ease-in-out
               `}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.12 }}
               onMouseEnter={() => setActiveId(experience.id)}
               onMouseLeave={() => setActiveId(null)}
             >
@@ -87,9 +86,10 @@ const Experience: React.FC = () => {
                     <motion.li
                       key={idx}
                       className="text-foreground-secondary flex items-start group"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.2 + idx * 0.1 }}
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, amount: 0.5 }}
+                      transition={{ delay: 0.1 + idx * 0.06, duration: 0.4 }}
                     >
                       <span className="text-primary/80 mr-2 flex items-center pt-1.5">
                         <FaCircle className="w-1.5 h-1.5" />

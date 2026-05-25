@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { educationData } from '../data/educationData';
 import { useLanguage } from '../context/LanguageContext';
+import { motion } from 'framer-motion';
 
 interface EducationItem {
   id: string | number;
@@ -31,10 +32,14 @@ const Education: React.FC = () => {
         <h2 className="section-title pb-2 mb-12">{t("education.title")}</h2>
         
         <div className="space-y-8 md:space-y-12">
-          {localizedEducation.map((education: EducationItem) => (
-            <div 
-              key={education.id} 
+          {localizedEducation.map((education: EducationItem, index: number) => (
+            <motion.div
+              key={education.id}
               className="border-l-2 border-primary pl-6 relative group transition-all hover:border-l-3 hover:border-primary"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.12 }}
               onClick={() => toggleDetails(education.id)}
             >
               {/* Indicador de timeline con animación */}
@@ -104,7 +109,7 @@ const Education: React.FC = () => {
                   </button>
                 )}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

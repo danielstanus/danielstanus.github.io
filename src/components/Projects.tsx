@@ -6,6 +6,7 @@ import { projectsData, ProjectItem as Project } from '../data/projectsData';
 import { FaGithub, FaExternalLinkAlt, FaInfoCircle } from 'react-icons/fa';
 import ProjectDetailModal from './ProjectDetailModal';
 import { useLanguage } from '../context/LanguageContext';
+import { motion } from 'framer-motion';
 
 const Projects: React.FC = () => {
   const [projectForModal, setProjectForModal] = useState<Project | null>(null);
@@ -73,12 +74,16 @@ const Projects: React.FC = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {sortedProjects.map((project: Project) => (
-            <div 
-              key={project.id} 
+          {sortedProjects.map((project: Project, index: number) => (
+            <motion.div
+              key={project.id}
               className={`group overflow-hidden transition-all duration-300 rounded-lg hover:shadow-xl ${
                 project.featured ? 'border-2 border-primary/30' : 'border border-border'
               }`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.45, delay: (index % 3) * 0.1 }}
             >
               <div 
                 className="h-64 relative overflow-hidden bg-background-secondary cursor-pointer"
@@ -172,7 +177,7 @@ const Projects: React.FC = () => {
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

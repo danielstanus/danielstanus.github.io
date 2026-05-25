@@ -4,6 +4,7 @@ import React from 'react';
 import { personalData } from '../data/personalData';
 import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaGlobeAmericas } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
+import { motion } from 'framer-motion';
 
 const About: React.FC = () => {
   const { language, t } = useLanguage();
@@ -15,13 +16,19 @@ const About: React.FC = () => {
         <h2 className="section-title text-center md:text-left pb-3">{t("about.title")}</h2>
 
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2">
+          <motion.div
+            className="md:col-span-2"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] }}
+          >
             {currentData.aboutParagraphs.map((paragraph: string, index: number) => (
               <p key={index} className="text-foreground-secondary mb-6 text-lg leading-relaxed">
                 {paragraph}
               </p>
             ))}
-            
+
             {/* Nuevas etiquetas de habilidades */}
             <div className="mt-8 flex flex-wrap gap-3">
               {['React', 'Angular', '.NET', 'PHP', 'Node.js', 'SQL', 'MongoDB', 'Azure'].map((skill) => (
@@ -30,9 +37,15 @@ const About: React.FC = () => {
                 </span>
               ))}
             </div>
-          </div>
-          
-          <div className="card bg-gradient-to-br from-primary/30 to-primary/5 backdrop-blur-sm border-primary/10 dark:bg-background-secondary">
+          </motion.div>
+
+          <motion.div
+            className="card bg-gradient-to-br from-primary/30 to-primary/5 backdrop-blur-sm border-primary/10 dark:bg-background-secondary"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55, delay: 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
+          >
             <h3 className="section-subtitle mb-6 pb-2 border-b border-primary/20">{t("about.info")}</h3>
             <ul className="space-y-5">
               <li className="flex items-start">
@@ -88,7 +101,7 @@ const About: React.FC = () => {
                 </div>
               </li>
             </ul>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
