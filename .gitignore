@@ -43,6 +43,5 @@ next-env.d.ts
 # Custom ignores
 MEJORAS.md
 CLAUDE.md
-h origin master
-.nojekyll
+
 

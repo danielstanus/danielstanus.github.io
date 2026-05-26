@@ -178,6 +178,6 @@ Este proyecto está bajo la licencia **MIT**. Consulta el archivo [LICENSE](LICE
 
 Hecho con ❤️ por **Daniel Calin Stanus**
 
-[🌐 danielstanus.github.io](https://danielstanus.github.io) · [💼 LinkedIn](https://www.linkedin.com/in/daniel-calin-stanus-1aa6a0b5) · [💻 GitHub](https://github.com/danielstanus)
+[🌐 danielstanus.github.io](https://danielstanus.github.io) · [💼 LinkedIn](https://www.linkedin.com/in/daniel-stanus) · [💻 GitHub](https://github.com/danielstanus)
 
 </div>
