@@ -11,10 +11,10 @@ const sizes = [
 ];
 
 async function generateFavicons() {
-  const inputSvg = fs.readFileSync(path.join(__dirname, '../public/favicon.svg'));
+  const inputPng = fs.readFileSync(path.join(__dirname, '../public/favicon.png'));
   
   for (const { size, name } of sizes) {
-    await sharp(inputSvg)
+    await sharp(inputPng)
       .resize(size, size)
       .png()
       .toFile(path.join(__dirname, '../public', name));
@@ -23,12 +23,12 @@ async function generateFavicons() {
   }
 
   // Generate ICO file (16x16 and 32x32 combined)
-  const ico16 = await sharp(inputSvg)
+  const ico16 = await sharp(inputPng)
     .resize(16, 16)
     .png()
     .toBuffer();
 
-  const ico32 = await sharp(inputSvg)
+  const ico32 = await sharp(inputPng)
     .resize(32, 32)
     .png()
     .toBuffer();

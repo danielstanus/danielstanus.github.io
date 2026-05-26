@@ -29,6 +29,12 @@ export const translations: Record<string, any> = {
       native: "Nativo",
       intermediate: "Intermedio"
     },
+    stats: {
+      experience: "Años de experiencia",
+      projects: "Proyectos completados",
+      technologies: "Tecnologías clave",
+      languages: "Idiomas hablados"
+    },
     experience: {
       title: "Experiencia",
       subtitle: "Mi trayectoria profesional",
@@ -125,6 +131,12 @@ export const translations: Record<string, any> = {
       native: "Native",
       intermediate: "Intermediate"
     },
+    stats: {
+      experience: "Years of experience",
+      projects: "Projects completed",
+      technologies: "Key technologies",
+      languages: "Languages spoken"
+    },
     experience: {
       title: "Experience",
       subtitle: "My professional path",
@@ -220,6 +232,12 @@ export const translations: Record<string, any> = {
       languages: "Limbi străine",
       native: "Nativ",
       intermediate: "Intermediar"
+    },
+    stats: {
+      experience: "Ani de experiență",
+      projects: "Proiecte finalizate",
+      technologies: "Tehnologii cheie",
+      languages: "Limbi vorbite"
     },
     experience: {
       title: "Experiență",

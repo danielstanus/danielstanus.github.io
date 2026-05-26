@@ -14,10 +14,10 @@ const Hero: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [showPlayButton, setShowPlayButton] = useState(false);
-  
+
   // Custom hook to cleanly manage audio lifecycle
   const { isPlaying, toggle: toggleAudio } = useAudio('/audio/epic-hover.mp3', 0.5);
-  
+
   // Fix hydration mismatch by only rendering client-specific elements after mount
   useEffect(() => {
     setIsClient(true);
@@ -47,22 +47,22 @@ const Hero: React.FC = () => {
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const mobileQuery = window.matchMedia('(max-width: 768px)');
-    
+
     setPrefersReducedMotion(mediaQuery.matches);
     setIsMobile(mobileQuery.matches);
 
     const handleMotionChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
     const handleMobileChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    
+
     mediaQuery.addEventListener('change', handleMotionChange);
     mobileQuery.addEventListener('change', handleMobileChange);
-    
+
     return () => {
       mediaQuery.removeEventListener('change', handleMotionChange);
       mobileQuery.removeEventListener('change', handleMobileChange);
     };
   }, []);
-  
+
   return (
     <section id="home" className="min-h-screen flex items-center justify-center bg-background dark:bg-background pt-12 md:pt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
@@ -71,13 +71,13 @@ const Hero: React.FC = () => {
           <div className="text-center md:text-left relative overflow-hidden order-2 md:order-1">
             {/* Fondo decorativo con gradiente animado */}
             <div className="absolute -inset-1/4 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 rounded-full blur-3xl opacity-50 animate-spin-slow -z-10"></div>
-            
+
             {/* Líneas decorativas animadas */}
             <div className="absolute left-0 top-1/4 w-12 h-1 bg-primary/30 rounded-full animate-pulse"></div>
             <div className="absolute right-1/4 bottom-1/4 w-20 h-1 bg-primary/30 rounded-full animate-pulse delay-700"></div>
-            
+
             <p className="text-primary font-mono font-medium tracking-wider mb-2 border-b border-primary/20 inline-block pb-1 transform hover:scale-105 transition-transform">{t("hero.hello")}</p>
-            
+
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 text-foreground relative group">
               {personalData.name.split('').map((letter, index) => (
                 <span
@@ -93,9 +93,9 @@ const Hero: React.FC = () => {
               ))}
               <span className="absolute -inset-x-2 inset-y-0 bg-primary/5 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 -z-10 rounded-md"></span>
             </h1>
-            
+
             <h2 className="text-2xl md:text-3xl text-foreground-secondary mb-6 transform hover:translate-x-2 transition-transform duration-300">{currentData.title}</h2>
-            
+
             <p className="text-foreground-secondary max-w-lg mx-auto md:mx-0 mb-5 leading-relaxed relative font-mono text-sm tracking-wide">
               {currentData.bio}
               <span className="absolute bottom-0 left-0 w-1/3 h-px bg-gradient-to-r from-primary/50 to-transparent"></span>
@@ -112,7 +112,7 @@ const Hero: React.FC = () => {
                 </span>
               ))}
             </div>
-            
+
             <div className="flex flex-wrap gap-4 justify-center md:justify-start mb-8">
               <a
                 href={personalData.githubUrl}
@@ -125,10 +125,10 @@ const Hero: React.FC = () => {
                 <span className="relative">GitHub</span>
               </a>
               {personalData.linkedinUrl && (
-                <a 
-                  href={personalData.linkedinUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href={personalData.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-outline flex items-center gap-2 relative overflow-hidden group"
                 >
                   <span className="absolute inset-0 bg-primary/10 -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
@@ -136,8 +136,8 @@ const Hero: React.FC = () => {
                   <span className="relative">LinkedIn</span>
                 </a>
               )}
-              <a 
-                href={`mailto:${personalData.email}`} 
+              <a
+                href={`mailto:${personalData.email}`}
                 className="btn-outline flex items-center gap-2 relative overflow-hidden group"
               >
                 <span className="absolute inset-0 bg-primary/10 -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
@@ -173,13 +173,13 @@ const Hero: React.FC = () => {
               </a>
             </div>
           </div>
-          
+
           {/* Columna imagen — en móvil aparece PRIMERO */}
           <div className="flex flex-col items-center order-1 md:order-2">
             {/* Audio element is now created programmatically in useEffect */}
-            
+
             {/* Contenedor de imagen con efecto avanzado */}
-            <div 
+            <div
               className="relative w-72 h-72 md:w-96 md:h-96 mx-auto mb-8"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
@@ -188,7 +188,7 @@ const Hero: React.FC = () => {
               {isClient && !isMobile && !prefersReducedMotion && (
                 <div className="absolute inset-0 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   {particlePositions.map((pos, i) => (
-                    <div 
+                    <div
                       key={i}
                       className={`absolute w-2 h-2 rounded-full bg-primary animate-particle-${i % 5 + 1}`}
                       style={{
@@ -200,7 +200,7 @@ const Hero: React.FC = () => {
                   ))}
                 </div>
               )}
-              
+
               {/* Mostrar botón de play/pause cuando el ratón está encima */}
               {isClient && showPlayButton && (
                 <button
@@ -213,7 +213,7 @@ const Hero: React.FC = () => {
                   </div>
                 </button>
               )}
-              
+
               {/* Main container with glitch effect */}
               <div className="relative group-hover:animate-glitch">
                 {/* Pseudo-elements for glitch effect - only render complex effects on desktop */}
@@ -223,16 +223,16 @@ const Hero: React.FC = () => {
                     <div className="absolute inset-0 rounded-[30%_70%_70%_30%/30%_40%_60%_70%] hidden group-hover:block before:content-[''] before:absolute before:inset-0 before:bg-primary/50 before:translate-x-[-5px] before:translate-y-[5px] before:rounded-[30%_70%_70%_30%/30%_40%_60%_70%] before:mix-blend-multiply before:opacity-0 before:group-hover:opacity-100 before:animate-glitch-2"></div>
                   </>
                 )}
-                
+
                 {/* Blob shape background with animation */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/50 to-background rounded-[30%_70%_70%_30%/30%_40%_60%_70%] animate-blob-morph filter blur-md opacity-70 group-hover:opacity-90 group-hover:from-accent group-hover:via-primary transition-all duration-500"></div>
-                
+
                 {/* Rotating gradient border */}
                 <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/30 to-primary rounded-[30%_70%_70%_30%/30%_40%_60%_70%] animate-spin-slow opacity-70 group-hover:opacity-100 group-hover:animate-spin-fast"></div>
-                
+
                 {/* Glow effect */}
                 <div className="absolute inset-0 bg-primary/20 rounded-[30%_70%_70%_30%/30%_40%_60%_70%] filter blur-xl group-hover:blur-2xl transition-all duration-1000 opacity-50 group-hover:opacity-80 group-hover:bg-accent/30"></div>
-                
+
                 {/* Image container - Transparent background to reveal the morphing gradient blob behind the transparent avatar */}
                 <div className="relative z-10 rounded-[30%_70%_70%_30%/30%_40%_60%_70%] overflow-hidden transition-all duration-500 transform group-hover:scale-105 group-hover:rotate-y-12 group-hover:translate-y-[-5px]">
                   {personalData.image ? (
@@ -255,7 +255,7 @@ const Hero: React.FC = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Firma con efecto de desvanecimiento */}
             <div className="mt-6 w-64 md:w-80 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent opacity-50 animate-pulse"></div>
@@ -270,7 +270,7 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Botón flotante de pausa - solo visible cuando el audio está sonando y NO se está haciendo hover */}
       {isClient && isPlaying && !showPlayButton && (
         <button
